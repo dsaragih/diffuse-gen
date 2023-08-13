@@ -18,9 +18,9 @@ $ (conda or pip) install mpi4py
 ### Model download
 To generate images, please download the pre-trained diffusion model(s)
 
-Full Model *LINK* TBA
+Full Model [LINK](https://drive.google.com/drive/folders/1GMQiG7qQiS2hIMBAN3I_-F7gigvo9IwL?usp=drive_link) ~2 GB
 
-Cluster Models *LINK* TBA
+Cluster Models [LINK](https://drive.google.com/drive/folders/1ChgZZltlj5KlxSRg2e3hTdcsJDGjq4m4?usp=drive_link) ~40GB
 
 download the model into ```./checkpoints``` folder
 
