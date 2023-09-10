@@ -69,13 +69,13 @@ The cluster path, output path, and model path can be changed to your own path.
 
 Note the format of the model path: each model will be of the form ```cluster_{cluster index}_model_{model iteration}.pt```. For example, ```cluster_0_model_110000.pt``` is the model for cluster 0 at iteration 110000. In the ```main.py``` file, we loop through all the cluster models with the given iteration number and generate samples for each cluster.
 
-```--fti``` selects a random image from the cluster to use as the target image for image-guided generation
+```-fti``` selects a random image from the cluster to use as the target image for image-guided generation
 
 ```-sty``` applies styling
 
-```--inp``` uses the inpainting technique
+```-inp``` uses the inpainting technique
 
-```--spi``` instead of just sampling {num_samples} images, we sample {num_samples} images from each image
+```-spi``` instead of just sampling {num_samples} images, we sample {num_samples} images from each image
 
 ### Sample images from full model
 
