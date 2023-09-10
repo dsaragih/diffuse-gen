@@ -1,7 +1,7 @@
 # DG-Seg
 ## Repository for "Diffusion-Generated Segmentation (DG-Seg)"
 
-Paper: TBA
+Paper: [Preliminary Report](https://github.com/dsaragih/diffuse-gen/blob/main/diffseg_paper.pdf)
 
 ### Environment
 Pytorch 1.12.1, Python 3.9
