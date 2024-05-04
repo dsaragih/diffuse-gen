@@ -42,13 +42,19 @@ def get_arguments() -> argparse.Namespace:
         "-dd", "--data_dir", type=str, help="The path to the image dataset", required=False
     )
     parser.add_argument(
-        "-mp", "--model_path", type=str, help="The path to the model", required=True
+        "-mp", "--model_path", type=str, help="The path to the model", required=False
+    )
+    parser.add_argument(
+        "-cmd", "--cluster_model_dir", type=str, help="The path to the directory of cluster models", required=True
     )
     parser.add_argument(
         "-n", "--num_samples", type=int, help="The number of samples to generate", default=5
     )
     parser.add_argument(
         "-si", "--start_index", type=int, help="The cluster index to start sampling from", default=0
+    )
+    parser.add_argument(
+        "-ei", "--end_index", type=int, help="The cluster index to end sampling", default=1
     )
     parser.add_argument(
         "--skip_timesteps",

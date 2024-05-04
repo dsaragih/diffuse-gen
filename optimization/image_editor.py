@@ -66,7 +66,7 @@ class ImageEditor:
         self.model_config = model_and_diffusion_defaults()
         self.model_config.update(
             {
-                "attention_resolutions": "16,8",
+                "attention_resolutions": "16",
                 "class_cond": False,
                 "diffusion_steps": 1000,
                 "rescale_timesteps": True,
@@ -455,6 +455,7 @@ class ImageEditor:
 
         logger.log(f"Sampling {num_samples * self.args.batch_size} images")
         while it < num_samples:
+            # Sets target_image and target_mask
             style_img_path, _ = self._get_target_image_and_mask(all_files, it=it)
             it += 1
             logger.log(f"Style image {style_img_path}")

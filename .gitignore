@@ -17,6 +17,12 @@ figures/
 **/*.ipynb
 !experiments.ipynb
 .gitattributes
+**/output_imgs_zip
+**/cluster_10_imgs*
+**/cluster_20_imgs
+**/cluster_30_imgs*
+**/cluster_40_imgs*
+**/cluster_samples*/
 
 # IPython
 profile_default/

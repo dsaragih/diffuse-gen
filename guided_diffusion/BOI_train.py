@@ -28,6 +28,9 @@ def load_clusters(cluster_file, idx):
     clusters = {}
     with open(cluster_file, "rb") as f:
         clusters = pickle.load(f)
+
+    assert idx in clusters, f"Cluster {idx} not found in {cluster_file}"
+
     return clusters[idx]
 
 
@@ -49,6 +52,7 @@ def main():
 
     logger.log(f"Loading cluster {args.cluster_index}...")
     cluster = load_clusters(args.cluster_file, args.cluster_index)
+    # Note that cluster is a list of paths to images
     cluster_size = len(cluster)
 
     logger.log(f"Cluster size: {cluster_size}")
@@ -72,6 +76,7 @@ def main():
     )
     # Train the models in parallel
     logger.log(f"training on cluster_{args.cluster_index}...")
+    logger.log(f"Saving every {args.save_interval} steps with a maximum of {args.max_steps} steps.")
     TrainLoop(
         model=model,
         diffusion=diffusion,
@@ -89,53 +94,36 @@ def main():
         schedule_sampler=schedule_sampler,
         weight_decay=args.weight_decay,
         lr_anneal_steps=args.lr_anneal_steps,
-    ).run_loop()
+    ).run_loop(max_steps=args.max_steps)
 
-    # batch.shape = (batch_size, 3, image_size, image_size)
-    # Run the following to see what the batch looks like:
-    # batch, mask, cond = next(data)
-    # print(batch.shape)
-    # print(mask.shape)
-    # print(batch.min())
-    # print(batch.max())
-    # print(mask.min())
-    # print(mask.max())
-
-    # import matplotlib.pyplot as plt
-    # img = batch[0].permute(1, 2, 0)
-    # plt.imshow(img)
-    # plt.savefig("img.png")
-    # plt.imshow((img + 1) / 2)
-    # plt.savefig("img1.png")
-    # plt.imshow(mask[0], cmap="gray")
-    # plt.savefig("mask")
 
 
 def create_argparser():
     # In this case, resume_checkpoint is the path to the dir + /model{step}.pt
     # image_size 256
     defaults = model_and_diffusion_defaults()
+    # The settings below will be overwritten by any command line arguments
     defaults.update(dict(
         data_dir='',
         out_dir=None,
         cluster_index=0,
         cluster_file="/root/diffusion-gen/clusters.pkl",
         schedule_sampler="uniform",
-        lr=1e-4,
+        lr=5e-5,
         weight_decay=0.0,
         lr_anneal_steps=0,
-        batch_size=1,
-        microbatch=-1,  # -1 disables microbatches
+        batch_size=128,
+        microbatch=4,  # -1 disables microbatches
         ema_rate="0.9999",  # comma-separated list of EMA values
         log_interval=10,
-        save_interval=10000,
-        max_steps=30000,    # some integer multiple of save_interval
+        save_interval=1000,
+        max_steps=3600,    # some integer multiple of save_interval
         resume_checkpoint="",
         fp16_scale_growth=1e-3,
     ))
     # Diffusion model settings
     defaults.update(dict(
-        attention_resolutions="16,8",
+        attention_resolutions="16",
         class_cond=False,
         diffusion_steps=1000,
         rescale_timesteps=True,
