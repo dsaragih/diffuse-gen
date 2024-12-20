@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pkl
+!/clustering/*.pkl
 *.png
 *.jpg
 # C extensions
@@ -16,6 +17,7 @@ figures/
 **/*.ipynb_checkpoints/
 **/*.ipynb
 !experiments.ipynb
+!clustering.ipynb
 .gitattributes
 **/output_imgs_zip
 **/cluster_10_imgs*
